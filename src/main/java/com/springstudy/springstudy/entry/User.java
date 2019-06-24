@@ -1,11 +1,13 @@
 package com.springstudy.springstudy.entry;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
 @Data
 public class User {
+    @Value("${user.nname}")
     private String name;
-
+    @Value("${user.age}")
     private Integer age;
 
     public User(String s, int i) {
