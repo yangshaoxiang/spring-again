@@ -3,17 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.springstudy</groupId>
+        <artifactId>springboot-study</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.springstudy</groupId>
-    <artifactId>springboot-study</artifactId>
+    <groupId>com.springstudy.base</groupId>
+    <artifactId>spring-base</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-study</name>
-    <packaging>pom</packaging>
+    <name>spring-base</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -28,16 +26,9 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>LATEST</version>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -45,12 +36,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.springstudy.springstudy.SpringStudyApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>spring-base</module>
-        <module>springboot-starter</module>
-    </modules>
 
 </project>
