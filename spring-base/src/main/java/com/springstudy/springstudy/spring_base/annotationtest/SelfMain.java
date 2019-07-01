@@ -2,6 +2,7 @@ package com.springstudy.springstudy.spring_base.annotationtest;
 
 
 import com.springstudy.springstudy.entry.Home;
+import com.springstudy.springstudy.entry.ImportTest;
 import com.springstudy.springstudy.entry.User;
 import com.springstudy.springstudy.spring_base.annotationtest.config.SelfScanFilterConfig;
 import com.springstudy.springstudy.spring_base.annotationtest.dao.UserDao;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RestController;
 
 //注意ComponentScan中的配置仅仅是表示类是否被容器扫描，即使扫描到了，无类似@Controller @Service @Repository @Compent注解也不会被加载到容器中
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
           // 结合includeFilters使用 false表示基础扫包中，只有includeFilters中才会加入到spring容器
           useDefaultFilters = false*/
 )
+@Import(ImportTest.class)
 public class SelfMain {
     public static void main(String[] args) {
         // 指定配置类
@@ -90,6 +93,14 @@ public class SelfMain {
             System.out.println("自定义环境对象:"+environment);
         }catch (NoSuchBeanDefinitionException exception){
             System.out.println("容器中未发现 environmentTest");
+        }
+
+        //验证 @Import = @ComponentScan + @Component 即被扫描到，且可以加入到容器
+        try{
+            Object importTest = annotationConfigApplicationContext.getBean(ImportTest.class);
+            System.out.println("导入测试对象:"+importTest);
+        }catch (NoSuchBeanDefinitionException exception){
+            System.out.println("容器中未发现 importTest");
         }
 
 
