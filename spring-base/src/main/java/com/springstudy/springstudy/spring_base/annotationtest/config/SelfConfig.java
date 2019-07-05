@@ -4,6 +4,10 @@ import com.springstudy.springstudy.entry.EnvironmentTest;
 import com.springstudy.springstudy.entry.Home;
 import com.springstudy.springstudy.entry.User;
 import org.springframework.context.annotation.*;
+import org.springframework.context.event.SimpleApplicationEventMulticaster;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
 @PropertySource(value = {"classpath:user.properties"})
@@ -34,5 +38,15 @@ public class SelfConfig {
         return new EnvironmentTest();
     }
 
+    /**
+     *  配置支持异步的事件多播器
+     */
+    @Bean
+    public SimpleApplicationEventMulticaster applicationEventMulticaster(){
+        SimpleApplicationEventMulticaster simpleApplicationEventMulticaster = new SimpleApplicationEventMulticaster();
+        simpleApplicationEventMulticaster.setTaskExecutor(Executors.newFixedThreadPool(10));
+        return simpleApplicationEventMulticaster;
+    }
 
+    //多播器不能用
 }

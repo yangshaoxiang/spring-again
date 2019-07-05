@@ -47,7 +47,7 @@ public class SelfMain {
         // 设置环境
         annotationConfigApplicationContext.getEnvironment().setActiveProfiles("test","dev");
         annotationConfigApplicationContext.register(SelfMain.class);
-        //做个刷新
+        // 做个刷新
         annotationConfigApplicationContext.refresh();
         // 验证基于注解配置Bean 默认单例 立即加载
         User user = annotationConfigApplicationContext.getBean("user", User.class);
@@ -105,4 +105,82 @@ public class SelfMain {
 
 
     }
+
+
+
+  /*  public void refresh() throws BeansException, IllegalStateException {
+        synchronized (this.startupShutdownMonitor) {
+            // Prepare this context for refreshing.
+            prepareRefresh();
+
+            // Tell the subclass to refresh the internal bean factory.
+            ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
+
+            // Prepare the bean factory for use in this context.
+            prepareBeanFactory(beanFactory);
+
+            try {
+                // Allows post-processing of the bean factory in context subclasses.
+                postProcessBeanFactory(beanFactory);
+
+                // Invoke factory processors registered as beans in the context.
+                *//**
+                 * 将需要纳入容器的bean，生成BeanDef 并注册到bean的注册器中
+                 *//*
+                invokeBeanFactoryPostProcessors(beanFactory);
+
+                // Register bean processors that intercept bean creation.
+                registerBeanPostProcessors(beanFactory);
+
+                // Initialize message source for this context.
+                initMessageSource();
+
+                // Initialize event multicaster for this context.
+               // 初始化一个事件多播器，注册到容器中
+                initApplicationEventMulticaster();
+
+                // Initialize other special beans in specific context subclasses.
+                // 默认是一个空实现 --》结合springboot后 里面非空
+                onRefresh();
+
+                // Check for listener beans and register them.
+                *//**
+                 *   1.获取容器中所有的事件监听器，注册到事件多播器中
+                 *         获取框架的事件监听器，注册
+                 *         获取我们自定义的事件监听器 注册
+                 *   2.使用多播器广播容器中的早期事件(所谓早期事件指的是在多播器初始化之前产生的事件)---》 正常是没有，但是结合springboot之后会有，就在上一步的 onRefresh()方法
+                 *         广播就是多播器获取他里面的所有监听器然后使用监听器去执行事件
+                 *//*
+                registerListeners();
+
+                // Instantiate all remaining (non-lazy-init) singletons.
+                finishBeanFactoryInitialization(beanFactory);
+
+                // Last step: publish corresponding event.
+                finishRefresh();
+            }
+
+            catch (BeansException ex) {
+                if (logger.isWarnEnabled()) {
+                    logger.warn("Exception encountered during context initialization - " +
+                            "cancelling refresh attempt: " + ex);
+                }
+
+                // Destroy already created singletons to avoid dangling resources.
+                destroyBeans();
+
+                // Reset 'active' flag.
+                cancelRefresh(ex);
+
+                // Propagate exception to caller.
+                throw ex;
+            }
+
+            finally {
+                // Reset common introspection caches in Spring's core, since we
+                // might not ever need metadata for singleton beans anymore...
+                resetCommonCaches();
+            }
+        }
+    }*/
 }
