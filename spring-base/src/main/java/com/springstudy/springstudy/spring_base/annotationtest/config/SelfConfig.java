@@ -24,6 +24,8 @@ public class SelfConfig {
         return  new User();
     }
 
+
+
     @Bean
     //自定义条件注解 当容器中包含 user时才能创建home
     @Conditional(SelfConditionConfig.class)
