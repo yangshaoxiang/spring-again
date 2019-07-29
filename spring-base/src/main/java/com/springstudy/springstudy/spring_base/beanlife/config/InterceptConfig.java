@@ -4,6 +4,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
+/**
+ * spring的后置处理器 AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization 1770行
+ */
 @Component
 public class InterceptConfig implements BeanPostProcessor {
 

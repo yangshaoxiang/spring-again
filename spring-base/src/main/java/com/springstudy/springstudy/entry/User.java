@@ -10,10 +10,13 @@ public class User {
     @Value("${user.age}")
     private Integer age;
 
-    public User(String s, int i) {
-        System.out.println("User构造方法被调用");
+    private String ss;
+
+    public User(String s, int i,String ss) {
+        System.out.println("User构造方法被调用:name:"+s+" age："+i);
         this.name = s;
         this.age = i;
+        this.ss = ss;
     }
 
     public User() {
