@@ -16,7 +16,7 @@ public class SelfApplicationListener implements ApplicationListener {
 
         // 这里睡眠测试 自定义可异步的多播器
         try {
-            Thread.sleep(10000L);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
