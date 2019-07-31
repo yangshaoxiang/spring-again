@@ -49,9 +49,10 @@ public class SelfMain {
         annotationConfigApplicationContext.register(SelfMain.class);
         // 做个刷新
         annotationConfigApplicationContext.refresh();
-        // 验证基于注解配置Bean 默认单例 立即加载
+        // 验证 同名bean 丢弃后加载
       /*  User bean = (User)annotationConfigApplicationContext.getBean("user22222");
         System.out.println("类型获取:"+bean.getSs());*/
+        // 验证基于注解配置Bean 默认单例 立即加载
         User user = annotationConfigApplicationContext.getBean("user", User.class);
         System.out.println(user);
         User user2 = annotationConfigApplicationContext.getBean("user",User.class);
