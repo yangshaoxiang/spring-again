@@ -3,10 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.springstudy</groupId>
+        <artifactId>springboot-study</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.springstudy.aop</groupId>
     <artifactId>spring-aop</artifactId>
@@ -34,6 +33,22 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- @Aspect需要的包 -->
+        <!-- https://mvnrepository.com/artifact/aopalliance/aopalliance -->
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!--jdk 1.8需使用这个版本，低版本会报 error at ::0 can't find referenced pointcut pointCut 问题-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

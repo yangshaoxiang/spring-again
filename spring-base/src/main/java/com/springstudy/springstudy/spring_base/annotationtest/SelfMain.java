@@ -9,10 +9,7 @@ import com.springstudy.springstudy.spring_base.annotationtest.dao.UserDao;
 import com.springstudy.springstudy.spring_base.annotationtest.service.UserService;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationEvent;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 //注意ComponentScan中的配置仅仅是表示类是否被容器扫描，即使扫描到了，无类似@Controller @Service @Repository @Compent注解也不会被加载到容器中

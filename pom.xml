@@ -51,6 +51,7 @@
     <modules>
         <module>spring-base</module>
         <module>springboot-starter</module>
+        <module>spring-aop</module>
     </modules>
 
 </project>
