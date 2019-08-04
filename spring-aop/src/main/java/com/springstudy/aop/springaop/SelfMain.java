@@ -16,7 +16,7 @@ public class SelfMain {
         // 指定配置类
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(SelfMain.class);
         Calculate calculate = annotationConfigApplicationContext.getBean("calculate", Calculate.class);
-        calculate.add(1,2);
+        calculate.useAdd(1,2);
 
     }
 

@@ -33,4 +33,6 @@ public interface Calculate {
      * @return
      */
      int multi(int numA,int numB);
+
+     int useAdd(int numA, int numB);
 }
