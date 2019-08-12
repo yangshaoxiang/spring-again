@@ -1,11 +1,13 @@
 package com.springstudy.springstudy.spring_base.annotationtest;
 
 
+import com.springstudy.springstudy.entry.EventModel;
 import com.springstudy.springstudy.entry.Home;
 import com.springstudy.springstudy.entry.ImportTest;
 import com.springstudy.springstudy.entry.User;
 import com.springstudy.springstudy.spring_base.annotationtest.config.SelfScanFilterConfig;
 import com.springstudy.springstudy.spring_base.annotationtest.dao.UserDao;
+import com.springstudy.springstudy.spring_base.annotationtest.listener.SelfApplicationEvent;
 import com.springstudy.springstudy.spring_base.annotationtest.service.UserService;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationEvent;
@@ -61,6 +63,9 @@ public class SelfMain {
 
         //验证事件发布 自定义的事件监听器 com.springstudy.springstudy.spring_base.annotationtest.listener
         annotationConfigApplicationContext.publishEvent(new ApplicationEvent("手动发布事件") {});
+        EventModel eventModel = new EventModel();
+        eventModel.setEventName("自定义事件实体");
+        annotationConfigApplicationContext.publishEvent(new SelfApplicationEvent(eventModel));
 
         /*--------------------------------验证@ComponentScan包扫描规则---------------------------------*/
         //配置了包扫描过滤 UserService 未添加到容器中
