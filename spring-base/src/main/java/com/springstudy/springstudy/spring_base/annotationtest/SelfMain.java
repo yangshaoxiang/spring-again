@@ -9,6 +9,7 @@ import com.springstudy.springstudy.spring_base.annotationtest.config.SelfScanFil
 import com.springstudy.springstudy.spring_base.annotationtest.dao.UserDao;
 import com.springstudy.springstudy.spring_base.annotationtest.listener.SelfApplicationEvent;
 import com.springstudy.springstudy.spring_base.annotationtest.service.UserService;
+import com.springstudy.springstudy.spring_base.annotationtest.startvalidation.CustomApplicationContext;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.*;
@@ -45,6 +46,8 @@ public class SelfMain {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
         // 设置环境
         annotationConfigApplicationContext.getEnvironment().setActiveProfiles("test","dev");
+        //自定义环境验证 -- 一般这个环境指的是系统的环境变量，不存在会在启动时报错 验证在refresh().prepareRefresh();
+        //annotationConfigApplicationContext.getEnvironment().setRequiredProperties("computer-id11");
         annotationConfigApplicationContext.register(SelfMain.class);
         // 做个刷新
         annotationConfigApplicationContext.refresh();
