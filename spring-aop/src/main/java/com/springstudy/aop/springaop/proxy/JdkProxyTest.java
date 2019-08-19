@@ -1,13 +1,11 @@
-package com.springstudy.aop.springaop.jdkproxy;
+package com.springstudy.aop.springaop.proxy;
 
 import com.springstudy.aop.springaop.aop.Calculate;
 import com.springstudy.aop.springaop.aop.CalculateImpl;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-public class ProxyTest {
+public class JdkProxyTest {
     public static void main(String[] args) {
         CalculateImpl target = new CalculateImpl();
         Calculate calculate = (Calculate)Proxy.newProxyInstance(Calculate.class.getClassLoader(), CalculateImpl.class.getInterfaces(), (proxy, method, args1) -> {
