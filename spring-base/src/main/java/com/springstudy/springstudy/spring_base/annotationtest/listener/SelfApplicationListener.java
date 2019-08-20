@@ -1,7 +1,6 @@
 package com.springstudy.springstudy.spring_base.annotationtest.listener;
 
 import com.springstudy.springstudy.entry.EventModel;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
