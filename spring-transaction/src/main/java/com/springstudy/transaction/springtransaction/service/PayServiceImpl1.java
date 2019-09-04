@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.math.BigDecimal;
 
 
-@Component("payService")
-public class PayServiceImpl implements PayService {
+@Component("payService1")
+public class PayServiceImpl1 implements PayService1 {
 
     @Autowired
     private AccountInfoDao accountInfoDao;
@@ -21,7 +20,7 @@ public class PayServiceImpl implements PayService {
     private ProductInfoDao productInfoDao;
 
     @Autowired
-    private PayService1 payService1;
+    private PayService payService;
 
 
     @Transactional

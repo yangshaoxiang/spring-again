@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 /**
- * AOP 过程
+ *  spring AOP 过程
  * 1.找到所有的增强器
  *    spring在集成AspectJ后使用注解@EnableAspectJAutoProxy开启AspectJ代理相关功能，实质上是往容器中注入一个AnnotationAwareAspectJAutoProxyCreator
  * 组件对象，该类有层层的继承和实现，其中有实现一个 InstantiationAwareBeanPostProcessor接口 该接口实现 BeanPostProcessor(bean的后置处理器)接口，
@@ -28,7 +28,6 @@ public class SelfMain {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(SelfMain.class);
         Calculate calculate = annotationConfigApplicationContext.getBean("calculate", Calculate.class);
         calculate.useAdd(1,2);
-
     }
 
 
