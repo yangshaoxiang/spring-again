@@ -12,4 +12,6 @@ public interface PayService {
     void pay(String accountId, double money);
 
     void updateProductStore(Integer productId);
+
+    void payWithoutTran(String accountId, double money);
 }

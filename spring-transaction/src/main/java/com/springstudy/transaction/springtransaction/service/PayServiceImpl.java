@@ -26,6 +26,7 @@ public class PayServiceImpl implements PayService {
 
     @Transactional
     public void pay(String accountId, double money) {
+        System.out.println("进入方法。。。。");
         //查询余额
         double blance = accountInfoDao.qryBlanceByUserId(accountId);
 
@@ -50,12 +51,27 @@ public class PayServiceImpl implements PayService {
     public void updateProductStore(Integer productId) {
         try{
             productInfoDao.updateProductInfo(productId);
-
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("内部异常");
         }
     }
 
 
+    @Override
+    public void payWithoutTran(String accountId, double money) {
+        System.out.println("进入 service 方法。。。。");
+        //查询余额
+        double blance = accountInfoDao.qryBlanceByUserId(accountId);
+
+        //余额不足正常逻辑
+        if(new BigDecimal(blance).compareTo(new BigDecimal(money))<0) {
+            throw new RuntimeException("余额不足");
+        }
+
+        //更新余额
+        int retVal = accountInfoDao.updateAccountBlance(accountId,money);
+
+        pay(accountId,money);
+        int a = 1/0;
+    }
 }
