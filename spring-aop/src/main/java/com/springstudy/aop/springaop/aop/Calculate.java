@@ -35,4 +35,6 @@ public interface Calculate {
      int multi(int numA,int numB);
 
      int useAdd(int numA, int numB);
+
+    public void getSum(long n);
 }

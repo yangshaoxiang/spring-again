@@ -4,6 +4,7 @@ import org.springframework.aop.framework.AopContext;
 
 public class CalculateImpl implements Calculate {
 
+
     public int add(int numA, int numB) {
         System.out.println("执行 add 方法");
         //测试异常时的通知
@@ -35,5 +36,16 @@ public class CalculateImpl implements Calculate {
         Calculate calculateProxy = (Calculate) AopContext.currentProxy();
         int result = calculateProxy.add(numA, numB);
         return result;
+    }
+
+    /**
+     * 用于测试 javassist 代理
+     */
+    public void getSum(long n) {
+        long sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += i;
+        }
+       // System.out.println("n="+n+",sum="+sum);
     }
 }
