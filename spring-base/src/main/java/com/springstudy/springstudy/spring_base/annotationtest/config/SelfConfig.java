@@ -3,6 +3,8 @@ package com.springstudy.springstudy.spring_base.annotationtest.config;
 import com.springstudy.springstudy.entry.EnvironmentTest;
 import com.springstudy.springstudy.entry.Home;
 import com.springstudy.springstudy.entry.User;
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.*;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 
@@ -30,7 +32,7 @@ public class SelfConfig {
 
     @Bean
     //自定义条件注解 当容器中包含 user时才能创建home
-    @Conditional(SelfConditionConfig.class)
+    //@Conditional(SelfConditionConfig.class)
     public Home home(){
         return new Home(3,"楼房");
     }

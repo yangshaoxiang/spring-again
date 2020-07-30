@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.math.BigDecimal;
 
@@ -22,6 +21,7 @@ public class PayServiceImpl implements PayService {
 
     @Autowired
     private PayService1 payService1;
+
 
 
     @Transactional
@@ -73,5 +73,13 @@ public class PayServiceImpl implements PayService {
 
         pay(accountId,money);
         int a = 1/0;
+    }
+
+    public static void main(String[] args) {
+        String ss = "0123,";
+        StringBuilder sb = new StringBuilder(ss);
+        String substring = sb.substring(0, sb.length() - 1);
+        System.out.println(substring);
+        System.out.println(sb);
     }
 }

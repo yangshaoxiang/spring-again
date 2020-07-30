@@ -11,7 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * InfrastructureAdvisorAutoProxyCreator 组件对象
  * 和spring AOP注入的那个组件对象类似，同样实现一个 InstantiationAwareBeanPostProcessor接口 该接口实现 BeanPostProcessor(bean的后置处理器)接口，
  *
- * 同时@EnableTransactionManagement注解还会注入 事务拦截器(和AOP切面一个概念)，事务增强器(和AOP增强器是一个概念)，事务注解解析器
+ * 同时@EnableTransactionManagement 注解还会注入 事务拦截器(和AOP切面一个概念)，事务增强器(和AOP增强器是一个概念)，事务注解解析器
  *
  * 对于AOP实现事务而言，不需要像一般的AOP那样缓存切面及增强器，因为事务是固定的增强器直接获取无需再做一层缓存，织入时机和spring AOP织入时机
  * 相同，织入时查找事务相关属性先在实现类方法上找，再在类上，接口方法上，接口上找
@@ -39,15 +39,15 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * 由我们自己根据情况返回应该使用的数据源key。然后获取数据源，在之后获取连接
  *
  * spring结合mybatis后Mapper的创建流程
- * spring结合mybatis后，Mapper的创建是由MapperFactoryBean创建，它是一个FactoryBean，通过getObject()方法创建Mapper，在该方法内，通过获取
+ * spring结合mybatis后，Mapper的创建是由 MapperFactoryBean 创建，它是一个FactoryBean，通过getObject()方法创建Mapper，在该方法内，通过获取
  * SqlSession对象调用其方法创建(内部实现基于动态代理)，因此重点就在这个sqlSession上，这个sqlSession其实是 sqlSessionTemplate
  * (该类实现SqlSession接口)，该对象是SqlSessionDaoSuprot创建(直接new)，sqlSessionTemplate创建SqlSession时创建时将自己本身传过去，
- * 在sqlSessionTemplate中有一个SqlSession类型的成员变量，该变量的创建是通过动态代理创建，在invoke方法中创建SqlSession
+ * 在sqlSessionTemplate 中有一个SqlSession类型的成员变量，该变量的创建是通过动态代理创建，在invoke方法中创建SqlSession
  * (通过Connection来创建，Connection先通过ThreadLocal获取，获取不到，从数据源获取)
  *
  * ssm或Springboot项目中 Service中注入的xxxMapper是否单例？
- * 是单例，如何保证线程安全？xxxMapper代理对象中包含sqlSessionTemplate，在sqlSessionTemplate中有一个
- * SqlSession类型的成员变量，该变量的创建是通过动态代理创建，在invoke方法中创建SqlSession(通过Connection来创建，Connection先通过ThreadLocal获取，获取不到，从数据源获取)。每次实际执行sql语句由该
+ * 是单例，如何保证线程安全？xxxMapper代理对象中包含 sqlSessionTemplate，在 sqlSessionTemplate 中有一个
+ * SqlSession 类型的成员变量，该变量的创建是通过动态代理创建，在invoke方法中创建 SqlSession(通过Connection来创建，Connection先通过ThreadLocal获取，获取不到，从数据源获取)。每次实际执行sql语句由该
  * 变量实际执行，因此保证线程安全
  *
  * 循环依赖问题

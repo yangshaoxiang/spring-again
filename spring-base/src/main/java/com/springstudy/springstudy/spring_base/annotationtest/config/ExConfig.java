@@ -10,7 +10,7 @@ public class ExConfig {
 
 
     //若容器中有同名同类的bean 后加载的bean会被舍弃，修改为不同名后会放到容器
-   // @Bean("user11")
+   //@Bean("user11")
     @Bean
     public User user(){
         System.out.println("调用了ExConfig.user");

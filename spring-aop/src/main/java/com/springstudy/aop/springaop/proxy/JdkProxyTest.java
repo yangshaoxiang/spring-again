@@ -23,9 +23,9 @@ public class JdkProxyTest {
         Calculate jdkProxy = getJdkProxy(target);
         // 通过代理对象调用目标方法
         long currentTimeMillis = System.currentTimeMillis();
-        for(int i=0;i<10000000;i++){
+        for(int i=0;i<10;i++){
             // 代理对象执行
-            jdkProxy.getSum(100);
+           // jdkProxy.getSum(100);
         }
         System.out.println(System.currentTimeMillis()-currentTimeMillis);
 
@@ -39,8 +39,9 @@ public class JdkProxyTest {
     private static Calculate getJdkProxy(Calculate target){
         // 1、生成$Proxy0的class文件  注意生成在 classpath 下
         // System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
-        return (Calculate)Proxy.newProxyInstance(Calculate.class.getClassLoader(), CalculateImpl.class.getInterfaces(), (proxy, method, args1) -> {
-          //  System.out.println("jdk 方法代理拦截" + method);
+       // return (Calculate)Proxy.newProxyInstance(Calculate.class.getClassLoader(), CalculateImpl.class.getInterfaces(), (proxy, method, args1) -> {
+        return (Calculate)Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), (proxy, method, args1) -> {
+           System.out.println("jdk 方法代理拦截" + method);
             return  method.invoke(target, args1);
         });
     }

@@ -11,7 +11,7 @@
     </context:component-scan>
 
     <bean class="com.springstudy.springstudy.entry.User" id="user" >
-        <property name="name" value="spring-xml-config"/>
+       <!-- <property name="name" value="spring-xml-config"/>-->
         <property name="age" value="12"/>
     </bean>
 </beans>

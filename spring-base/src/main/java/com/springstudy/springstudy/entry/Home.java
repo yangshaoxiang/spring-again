@@ -1,6 +1,7 @@
 package com.springstudy.springstudy.entry;
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 /**
  *  家类

@@ -5,15 +5,19 @@ import com.springstudy.springstudy.entry.EventModel;
 import com.springstudy.springstudy.entry.Home;
 import com.springstudy.springstudy.entry.ImportTest;
 import com.springstudy.springstudy.entry.User;
-import com.springstudy.springstudy.spring_base.annotationtest.config.SelfScanFilterConfig;
 import com.springstudy.springstudy.spring_base.annotationtest.dao.UserDao;
 import com.springstudy.springstudy.spring_base.annotationtest.listener.SelfApplicationEvent;
 import com.springstudy.springstudy.spring_base.annotationtest.service.UserService;
-import com.springstudy.springstudy.spring_base.annotationtest.startvalidation.CustomApplicationContext;
+import com.springstudy.springstudy.spring_base.annotationtest.sometest.CountryMapper;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.*;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.lang.reflect.Modifier;
 
 //注意ComponentScan中的配置仅仅是表示类是否被容器扫描，即使扫描到了，无类似@Controller @Service @Repository @Compent注解也不会被加载到容器中
 @ComponentScan(
@@ -24,9 +28,9 @@ import org.springframework.web.bind.annotation.RestController;
                 //根据注解排除
                 @ComponentScan.Filter(type = FilterType.ANNOTATION,value = {RestController.class}),
                 //根据类型排除
-                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,value = {UserService.class}),
+               // @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,value = {UserService.class}),
                 //自定义类型排除
-                @ComponentScan.Filter(type = FilterType.CUSTOM,value = {SelfScanFilterConfig.class})
+                //@ComponentScan.Filter(type = FilterType.CUSTOM,value = {SelfScanFilterConfig.class})
         }
 
         /* ,//包含配置 表示基础扫包下 只包含意思
@@ -74,7 +78,9 @@ public class SelfMain {
         //配置了包扫描过滤 UserService 未添加到容器中
         try{
             UserService userService = annotationConfigApplicationContext.getBean(UserService.class);
+            UserService.test();
             System.out.println(userService);
+
         }catch (NoSuchBeanDefinitionException exception){
             System.out.println("容器中未发现 UserService");
         }
@@ -111,84 +117,33 @@ public class SelfMain {
             System.out.println("容器中未发现 importTest");
         }
 
+        try{
+            CountryMapper countryMapper = annotationConfigApplicationContext.getBean(CountryMapper.class);
+            System.out.println("导入动态注册对象:"+countryMapper);
+        }catch (NoSuchBeanDefinitionException exception){
+            System.out.println("容器中未发现 CountryMapper");
+        }
+
+        // @Lookup 使用场景 单例 bean 内注入 非单例 bean   https://www.jianshu.com/p/fc574881e3a2
 
     }
 
 
+    // 计算对象的空闲时间，也就是没有被访问的时间，返回结果是毫秒
+     public static long estimateObjectIdleTime() {
+         // 获取 redis 时钟，也就是 server.lruclock 的值
+        int lruclock = 16777216;
+      /*  if (lruclock >= o->lru) {
+            // 正常递增
+            return (lruclock - o->lru) * LRU_CLOCK_RESOLUTION; // LRU_CLOCK_RESOLUTION 默认是 1000
+        } else {
+            // 折返了
+            return (lruclock + (LRU_CLOCK_MAX - o->lru)) * // LRU_CLOCK_MAX 是 2^24-1
+                    LRU_CLOCK_RESOLUTION;
+        }*/
+      return 0;
+    }
 
-  /*  public void refresh() throws BeansException, IllegalStateException {
-        synchronized (this.startupShutdownMonitor) {
-            // Prepare this context for refreshing.
-            prepareRefresh();
 
-            // Tell the subclass to refresh the internal bean factory.
-            ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
-            // Prepare the bean factory for use in this context.
-            prepareBeanFactory(beanFactory);
-
-            try {
-                // Allows post-processing of the bean factory in context subclasses.
-                postProcessBeanFactory(beanFactory);
-
-                // Invoke factory processors registered as beans in the context.
-                *//**
-                 * 将需要纳入容器的bean，生成BeanDef 并注册到bean的注册器中
-                 *//*
-                invokeBeanFactoryPostProcessors(beanFactory);
-
-                // Register bean processors that intercept bean creation.
-                registerBeanPostProcessors(beanFactory);
-
-                // Initialize message source for this context.
-                initMessageSource();
-
-                // Initialize event multicaster for this context.
-               // 初始化一个事件多播器，注册到容器中
-                initApplicationEventMulticaster();
-
-                // Initialize other special beans in specific context subclasses.
-                // 默认是一个空实现 --》结合springboot后 里面非空
-                onRefresh();
-
-                // Check for listener beans and register them.
-                *//**
-                 *   1.获取容器中所有的事件监听器，注册到事件多播器中
-                 *         获取框架的事件监听器，注册
-                 *         获取我们自定义的事件监听器 注册
-                 *   2.使用多播器广播容器中的早期事件(所谓早期事件指的是在多播器初始化之前产生的事件)---》 正常是没有，但是结合springboot之后会有，就在上一步的 onRefresh()方法
-                 *         广播就是多播器获取他里面的所有监听器然后使用监听器去执行事件
-                 *//*
-                registerListeners();
-
-                // Instantiate all remaining (non-lazy-init) singletons.
-                finishBeanFactoryInitialization(beanFactory);
-
-                // Last step: publish corresponding event.
-                finishRefresh();
-            }
-
-            catch (BeansException ex) {
-                if (logger.isWarnEnabled()) {
-                    logger.warn("Exception encountered during context initialization - " +
-                            "cancelling refresh attempt: " + ex);
-                }
-
-                // Destroy already created singletons to avoid dangling resources.
-                destroyBeans();
-
-                // Reset 'active' flag.
-                cancelRefresh(ex);
-
-                // Propagate exception to caller.
-                throw ex;
-            }
-
-            finally {
-                // Reset common introspection caches in Spring's core, since we
-                // might not ever need metadata for singleton beans anymore...
-                resetCommonCaches();
-            }
-        }
-    }*/
 }
